@@ -40,6 +40,10 @@ def get_transcript(video_id):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the YouTube chatbot API"}
+    
 @app.post("/transcript")
 async def fetch_transcript(request: VideoRequest):
     video_id = extract_video_id(request.url)
