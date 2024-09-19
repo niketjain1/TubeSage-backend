@@ -37,7 +37,7 @@ def get_transcript(video_id):
         return transcripts[video_id]
     
     try:
-        transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en', 'en-US', 'hi', 'es', 'fr', 'de', 'ja', 'ko', 'ru'])
+        transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en', 'en-US', 'hi', 'es', 'fr', 'de', 'ja', 'ko', 'ru'], proxies={"http": "http://zyte-api-key:@api.zyte.com:8011/","https": "http://zyte-api-key:@api.zyte.com:8011/",}, verify='/path/to/zyte-ca.crt')
         full_transcript = " ".join([entry['text'] for entry in transcript])
         transcripts[video_id] = full_transcript
         return full_transcript
