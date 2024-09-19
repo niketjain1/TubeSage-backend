@@ -6,6 +6,10 @@ from dotenv import load_dotenv
 from .models import VideoRequest, QuestionRequest, ActionRequest
 import os
 import openai
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -46,12 +50,14 @@ def read_root():
     
 @app.post("/transcript")
 async def fetch_transcript(request: VideoRequest):
+    logger.info(f"Generating transcript for URL: {request.url}")
     video_id = extract_video_id(request.url)
     transcript = get_transcript(video_id)
     return {"transcript": transcript}
 
 @app.post("/ask")
 async def ask_question(request: QuestionRequest):
+    logger.info(f"Received transcript request for URL: {request.url}")
     video_id = extract_video_id(request.url)
     
     if video_id not in transcripts:
@@ -81,6 +87,7 @@ async def ask_question(request: QuestionRequest):
 
 @app.post("/action")
 async def perform_action(request: ActionRequest):
+    logger.info(f"Received action request for URL: {request.url}")
     video_id = extract_video_id(request.url)
     
     if video_id not in transcripts:
@@ -114,6 +121,7 @@ async def perform_action(request: ActionRequest):
 
 @app.post("/suggested_questions")
 async def generate_suggested_questions(request: VideoRequest):
+    logger.info(f"Received suggested questions request for URL: {request.url}")
     video_id = extract_video_id(request.url)
     
     if video_id not in transcripts:
