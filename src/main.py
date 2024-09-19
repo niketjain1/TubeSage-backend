@@ -100,7 +100,7 @@ async def perform_action(request: ActionRequest):
     ]
     
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model="gpt-4o-mini",
         messages=messages
     )
     
@@ -118,7 +118,7 @@ async def generate_suggested_questions(request: VideoRequest):
         transcript = transcripts[video_id]
     
     messages = [
-        {"role": "system", "content": "You are a youtube video analysis assistant. Generate 3-5 relevant and interesting questions based on the video transcript. The questions should encourage viewers to engage more deeply with the video content."},
+        {"role": "system", "content": "You are a youtube video analysis assistant. Generate 3-5 short, precise, and specific questions based on the video transcript. Each question should be no longer than 10 words and should encourage viewers to engage more deeply with the video content. The questions should only be in english."},
         {"role": "user", "content": f"Transcript: {transcript}\n\nTask: Generate 3-5 suggested questions about this video content."}
     ]
     
