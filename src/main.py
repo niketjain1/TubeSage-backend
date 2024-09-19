@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from youtube_transcript_api import YouTubeTranscriptApi
 from dotenv import load_dotenv
-from .models import VideoRequest, QuestionRequest, ActionRequest
+from models import VideoRequest, QuestionRequest, ActionRequest
 import os
 import openai
 
