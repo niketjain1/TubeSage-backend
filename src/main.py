@@ -37,7 +37,7 @@ def get_transcript(video_id):
         return transcripts[video_id]
     
     try:
-        transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en', 'en-US', 'hi', 'es', 'fr', 'de', 'ja', 'ko', 'ru'], proxies={"http": "http://zyte-api-key:@api.zyte.com:8011/","https": "http://zyte-api-key:@api.zyte.com:8011/",}, verify='/path/to/zyte-ca.crt')
+        transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en', 'en-US', 'hi', 'es', 'fr', 'de', 'ja', 'ko', 'ru'])
         full_transcript = " ".join([entry['text'] for entry in transcript])
         transcripts[video_id] = full_transcript
         return full_transcript
@@ -66,7 +66,7 @@ async def ask_question(request: QuestionRequest):
         transcript = transcripts[video_id]
     
     messages = [
-        {"role": "system", "content": "You are a youtube question answerer assitant that answers questions based on the provided video transcript. Keep the answer short and concise in english. Don't mention the keyword 'transcript' while answering the question. The answer should be in first person. If the question is not related to the video, say respond with 'I'm sorry, I can't answer that question. Its out of context.'"},
+        {"role": "system", "content": "You are a youtube question answerer assitant that answers questions based on the provided video transcript. Keep the answer short and concise in english. Don't mention the keyword 'transcript' while answering the question. The answer should be in third person in respective of the person in the video. If the question is not related to the video, say respond with 'I'm sorry, I can't answer that question. Its out of context.'"},
         {"role": "user", "content": f"Transcript: {transcript}"}
     ]
     
